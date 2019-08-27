@@ -456,3 +456,7 @@ springBoot {
 bootWar {
     mainClassName = 'org.apache.fineract.ServerWithMariaDB4jApplication'
 }
+
+rat {
+    failOnError = false
+}

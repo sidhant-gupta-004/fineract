@@ -123,7 +123,7 @@ public class FixedDepositAccountsApiResource {
     }
 
     @GET
-    @Path("template")
+    @Path("templatei")
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
     @ApiOperation(value = "Retrieve Fixed Deposit Account Template", httpMethod = "GET", notes = "This is a convenience resource. It can be useful when building maintenance user interface screens for fixed deposit applications. The template data returned consists of any or all of:\n\n" + "\n\n" + "Field Defaults\n\n" + "Allowed Value Lists" + "Example Requests:\n\n" + "\n\n" + "fixeddepositaccounts/template?clientId=1")

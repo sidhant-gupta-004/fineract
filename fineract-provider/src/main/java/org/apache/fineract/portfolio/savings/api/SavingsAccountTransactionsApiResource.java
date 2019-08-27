@@ -19,6 +19,7 @@
 package org.apache.fineract.portfolio.savings.api;
 
 import java.util.Collection;
+import java.util.Arrays;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -47,12 +48,19 @@ import org.apache.fineract.portfolio.paymenttype.service.PaymentTypeReadPlatform
 import org.apache.fineract.portfolio.savings.DepositAccountType;
 import org.apache.fineract.portfolio.savings.SavingsApiConstants;
 import org.apache.fineract.portfolio.savings.data.SavingsAccountTransactionData;
+import org.apache.fineract.portfolio.savings.data.PaymentHubTransactionDTO;
 import org.apache.fineract.portfolio.savings.service.SavingsAccountReadPlatformService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.dao.CannotAcquireLockException;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Component;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+//import org.springframework.http.MediaType;
+import org.springframework.web.client.RestTemplate;
+
 
 @Path("/savingsaccounts/{savingsId}/transactions")
 @Component
@@ -86,7 +94,7 @@ public class SavingsAccountTransactionsApiResource {
     }
 
     @GET
-    @Path("template")
+    @Path("templatei")
     @Consumes({ MediaType.APPLICATION_JSON })
     @Produces({ MediaType.APPLICATION_JSON })
     public String retrieveTemplate(@PathParam("savingsId") final Long savingsId,
@@ -198,5 +206,40 @@ public class SavingsAccountTransactionsApiResource {
         }
 
         return this.toApiJsonSerializer.serialize(result);
+    }
+
+    @POST
+    @Path("{transactionType}")
+    @Consumes({ MediaType.APPLICATION_JSON })
+    @Produces({ MediaType.APPLICATION_JSON })
+    public String makeTransaction(@PathParam("transactionType") final String transactionType, final String apiRequestBodyAsJson) {
+
+        String jsonApiRequest = apiRequestBodyAsJson;
+
+        if (StringUtils.isBlank(jsonApiRequest)) {
+            jsonApiRequest = "{}";
+        }
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setContentType(org.springframework.http.MediaType.APPLICATION_JSON);
+        httpHeaders.setAccept(Arrays.asList(org.springframework.http.MediaType.APPLICATION_JSON));
+
+	HttpEntity<String> entity = new HttpEntity<>(jsonApiRequest, httpHeaders);
+
+        HttpMethod httpMethod = HttpMethod.POST;
+
+        String endpointUrl = "";
+
+        if (is(transactionType, "merchantpay")) {
+            endpointUrl = "http://localhost:8081/merchantpay";
+        } else if (is(transactionType, "peertransfer")) {
+            endpointUrl = "http://localhost:8081/peertransfer";
+        }
+
+        RestTemplate restTemplate = new RestTemplate();
+	PaymentHubTransactionDTO transactionObject = restTemplate.exchange(endpointUrl, httpMethod, entity, 
+							PaymentHubTransactionDTO.class).getBody();
+
+	return transactionObject.toString();
     }
 }

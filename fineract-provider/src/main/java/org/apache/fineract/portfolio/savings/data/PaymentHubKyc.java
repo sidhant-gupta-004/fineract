@@ -1,0 +1,150 @@
+package org.apache.fineract.portfolio.savings.data;
+
+/*
+"senderKyc": {
+    "nationality": "AD",
+    "dateOfBirth": "string",
+    "occupation": "string",
+    "employerName": "string",
+    "contactPhone": "string",
+    "gender": "m",
+    "idDocument": [
+      {
+        "idType": "passport",
+        "idNumber": "string",
+        "issueDate": "string",
+        "expiryDate": "string",
+        "issuer": "string",
+        "issuerPlace": "string",
+        "issuerCountry": "AD",
+        "otherIdDescription": "string"
+      }
+    ],
+    "postalAddress": {
+      "addressLine1": "string",
+      "addressLine2": "string",
+      "addressLine3": "string",
+      "city": "string",
+      "stateProvince": "string",
+      "postalCode": "string",
+      "country": "AD"
+    },
+    "subjectName": {
+      "title": "string",
+      "firstName": "string",
+      "middleName": "string",
+      "lastName": "string",
+      "fullName": "string",
+      "nativeName": "string"
+    },
+    "emailAddress": "string",
+    "birthCountry": "AD"
+  }
+ */
+
+public class PaymentHubKyc {
+
+    String nationality;
+    String dateOfBirth;
+    String occupation;
+    String employerName;
+    String contactPhone;
+    char gender;
+
+    PaymentHubIdDocument[] idDocument;
+
+    PaymentHubPostalAddress postalAddress;
+
+    PaymentHubSubjectName subjectName;
+
+    String emailAddress;
+    String birthCountry;
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(String occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getEmployerName() {
+        return employerName;
+    }
+
+    public void setEmployerName(String employerName) {
+        this.employerName = employerName;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public PaymentHubIdDocument[] getIdDocument() {
+        return idDocument;
+    }
+
+    public void setIdDocument(PaymentHubIdDocument[] idDocument) {
+        this.idDocument = idDocument;
+    }
+
+    public PaymentHubPostalAddress getPostalAddress() {
+        return postalAddress;
+    }
+
+    public void setPostalAddress(PaymentHubPostalAddress postalAddress) {
+        this.postalAddress = postalAddress;
+    }
+
+    public PaymentHubSubjectName getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(PaymentHubSubjectName subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getBirthCountry() {
+        return birthCountry;
+    }
+
+    public void setBirthCountry(String birthCountry) {
+        this.birthCountry = birthCountry;
+    }
+}
